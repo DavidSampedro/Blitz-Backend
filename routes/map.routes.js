@@ -38,3 +38,22 @@ router.get("/migrar-coordenadas", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// 2. LA RUTA PARA EL MAPA (Lo que lee React)
+router.get("/locations", async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        i.id, i.nombre, i.maps_url, i.lat, i.lng, g.nombre as grupo,
+        CASE WHEN d.id IS NOT NULL THEN 'entregado' ELSE 'pendiente' END as estado
+      FROM instituciones i
+      JOIN grupos g ON i.grupo_id = g.id
+      LEFT JOIN entregas d ON i.id = d.institucion_id
+      WHERE i.lat IS NOT NULL
+    `;
+    const result = await db.query(query);
+    res.json(result.rows);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+module.exports = router;

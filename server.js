@@ -40,6 +40,8 @@ app.use("/api/institutions", require("./routes/institutions.routes"));
 app.use("/api/churches", require("./routes/churches.routes"));
 app.use("/api/deliveries", require("./routes/deliveries.routes"));
 
+app.use('/api/map', require('./routes/map.routes'));
+
 // Opcional: Una ruta para probar la DB desde el navegador
 app.get("/test-db", async (req, res) => {
   try {
