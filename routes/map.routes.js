@@ -2,7 +2,7 @@ const router = require("express").Router();
 const db = require("../config/db");
 const axios = require("axios");
 
-// 🤖 RUTA SECRETA: Ejecutar solo una vez para llenar la base de datos
+/*// 🤖 RUTA SECRETA: Ejecutar solo una vez para llenar la base de datos
 router.get("/migrar-coordenadas", async (req, res) => {
   try {
     // 1. Buscamos las instituciones que NO tienen latitud todavía
@@ -38,6 +38,7 @@ router.get("/migrar-coordenadas", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+*/
 
 // 2. LA RUTA PARA EL MAPA (Lo que lee React)
 router.get("/locations", async (req, res) => {
