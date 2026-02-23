@@ -46,9 +46,9 @@ router.get("/locations", async (req, res) => {
       SELECT 
         i.id, i.nombre, i.maps_url, i.lat, i.lng, g.nombre as grupo,
         CASE WHEN d.id IS NOT NULL THEN 'entregado' ELSE 'pendiente' END as estado
-      FROM instituciones i
+      FROM institutions i
       JOIN grupos g ON i.grupo_id = g.id
-      LEFT JOIN entregas d ON i.id = d.institucion_id
+      LEFT JOIN entregas d ON i.id = d.institution_id
       WHERE i.lat IS NOT NULL
     `;
     const result = await db.query(query);

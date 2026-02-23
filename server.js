@@ -27,6 +27,7 @@ app.use("/api/deliveries", deliveryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupsRoutes); //  Conectas la ruta /api/groups
 app.use("/api/members", memberRoutes);
+app.use('/api/map', require('./routes/map.routes'));
 
 // Ruta de prueba
 app.get("/", (req, res) => {
@@ -40,7 +41,6 @@ app.use("/api/institutions", require("./routes/institutions.routes"));
 app.use("/api/churches", require("./routes/churches.routes"));
 app.use("/api/deliveries", require("./routes/deliveries.routes"));
 
-app.use('/api/map', require('./routes/map.routes'));
 
 // Opcional: Una ruta para probar la DB desde el navegador
 app.get("/test-db", async (req, res) => {
