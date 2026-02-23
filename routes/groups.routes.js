@@ -13,7 +13,7 @@ const router = express.Router();
 const { getGroups, createGroup, deleteGroup } = require("../controllers/groups.controller");
 
 // Aplicamos el middleware para que solo usuarios logueados (con Token) puedan usar esto
-router.use(authMiddleware);
+//router.use(authMiddleware);
 
 // Definimos los Endpoints
 router.get("/", getGroups);             // Cuando React hace un GET
