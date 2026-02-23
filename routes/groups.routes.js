@@ -9,7 +9,7 @@ module.exports = router;
 
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middleware/auth.middleware"); // Para proteger con token
+//const authMiddleware = require("../middleware/auth.middleware"); // Para proteger con token
 const { getGroups, createGroup, deleteGroup } = require("../controllers/groups.controller");
 
 // Aplicamos el middleware para que solo usuarios logueados (con Token) puedan usar esto
