@@ -10,7 +10,6 @@ const groupsRoutes = require("./routes/groups.routes"); //  Importas tus rutas d
 const memberRoutes = require("./routes/members.routes");
 const cors = require('cors');
 // Esto permite que cualquier página consulte tu API (puedes restringirlo después)
-app.use(cors());
 
 const app = express();
 
