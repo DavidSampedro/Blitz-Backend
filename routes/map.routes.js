@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const db = require("../config/db");
-const axios = require("axios");
+//const axios = require("axios");
 
 /*// 🤖 RUTA SECRETA: Ejecutar solo una vez para llenar la base de datos
 router.get("/migrar-coordenadas", async (req, res) => {
