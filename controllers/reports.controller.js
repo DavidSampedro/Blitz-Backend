@@ -5,11 +5,11 @@ exports.getGlobalReport = async (req, res) => {
     // 1. KPIs Principales (En una sola consulta para eficiencia)
     const kpis = await db.query(`
       SELECT 
-        (SELECT COUNT(*) FROM institutions) as total_instituciones,
-        (SELECT SUM(estudiantes) FROM institutions) as meta_estudiantes,
-        (SELECT SUM(cantidad) FROM deliveries) as total_entregado,
-        (SELECT COUNT(*) FROM groups) as total_grupos,
-        (SELECT COUNT(*) FROM members) as total_voluntarios
+        (SELECT COUNT(*) FROM institutions)::INT as total_instituciones,
+        COALESCE((SELECT SUM(estudiantes) FROM institutions), 0)::INT as meta_estudiantes,
+        COALESCE((SELECT SUM(cantidad) FROM deliveries), 0)::INT as total_entregado,
+        (SELECT COUNT(*) FROM groups)::INT as total_grupos,
+        (SELECT COUNT(*) FROM members)::INT as total_voluntarios
     `);
 
     // 2. Entregas por Día (Para el gráfico de líneas)
@@ -22,15 +22,16 @@ exports.getGlobalReport = async (req, res) => {
     `);
 
     // 3. Rendimiento por Grupo (Usando tu vista progreso_grupos)
-    const porGrupo = await db.query(`SELECT * FROM progreso_grupos ORDER BY total_entregado DESC`);
+    const porGrupo = await db.query(`SELECT nombre, total_entregado::INT FROM progreso_grupos ORDER BY total_entregado DESC`);
 
     // 4. Cobertura por Jornada (Dato interesante para logística)
     const porJornada = await db.query(`
       SELECT jornada, SUM(entregados) as total 
       FROM institutions 
-      GROUP BY jornada
+      GROUP BY jornada 
     `);
 
+    
     res.json({
       summary: kpis.rows[0],
       dailyTrend: porDia.rows,

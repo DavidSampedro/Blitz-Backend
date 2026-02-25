@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const reportsController = require("../controllers/reports.controller");
-const reportRoutes = require('./routes/report.routes');
-// ...
-app.use('/api/reports', reportRoutes); // Esto crea la ruta /api/reports/global
 
-// Esta ruta se convierte en /api/reports/global
+// La ruta base ya se define en server.js (/api/reports)
+// Aquí solo definimos el punto final
 router.get('/global', reportsController.getGlobalReport);
 
 module.exports = router;
