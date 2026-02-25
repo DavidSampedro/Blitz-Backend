@@ -6,11 +6,13 @@ exports.getGlobalReport = async (req, res) => {
     const kpis = await db.query(`
       SELECT 
         (SELECT COUNT(*) FROM institutions)::INT as total_instituciones,
-        COALESCE((SELECT SUM(estudiantes) FROM institutions), 0)::INT as meta_estudiantes,
+        60000::INT as meta_estudiantes, 
         COALESCE((SELECT SUM(cantidad) FROM deliveries), 0)::INT as total_entregado,
         (SELECT COUNT(*) FROM groups)::INT as total_grupos,
         (SELECT COUNT(*) FROM members)::INT as total_voluntarios
     `);
+        //COALESCE((SELECT SUM(estudiantes) FROM institutions), 0)::INT as meta_estudiantes, -- para definir la meta con sumas
+
 
     // 2. Entregas por Día (Para el gráfico de líneas)
     const porDia = await db.query(`
