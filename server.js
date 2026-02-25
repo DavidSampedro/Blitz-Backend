@@ -37,11 +37,11 @@ app.get("/", (req, res) => {
 });
 
 // 2. Usar la ruta: todas las rutas de grupos empezarán con /api/groups
-app.use("/api/auth", require("./routes/auth.routes"));
+/*app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/groups", require("./routes/groups.routes"));
 app.use("/api/institutions", require("./routes/institutions.routes"));
 app.use("/api/churches", require("./routes/churches.routes"));
-app.use("/api/deliveries", require("./routes/deliveries.routes"));
+app.use("/api/deliveries", require("./routes/deliveries.routes"));*/
 
 
 // Opcional: Una ruta para probar la DB desde el navegador
