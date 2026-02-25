@@ -8,6 +8,7 @@ const churchRoutes = require("./routes/churches.routes");
 const deliveryRoutes = require("./routes/deliveries.routes");
 const groupsRoutes = require("./routes/groups.routes"); //  Importas tus rutas de grupos
 const memberRoutes = require("./routes/members.routes");
+const reportRoutes = require('./routes/reports.routes');
 
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/api/deliveries", deliveryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupsRoutes); //  Conectas la ruta /api/groups
 app.use("/api/members", memberRoutes);
+app.use('/api/reports', reportRoutes);
 app.use('/api/map', require('./routes/map.routes'));
 
 // Ruta de prueba
