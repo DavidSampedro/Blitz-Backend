@@ -6,7 +6,7 @@ exports.getGlobalReport = async (req, res) => {
     const kpis = await db.query(`
       SELECT 
         (SELECT COUNT(*) FROM institutions)::INT as total_instituciones,
-        60000::INT as meta_estudiantes, 
+        40000::INT as meta_estudiantes, 
         COALESCE((SELECT SUM(cantidad) FROM deliveries), 0)::INT as total_entregado,
         (SELECT COUNT(*) FROM groups)::INT as total_grupos,
         (SELECT COUNT(*) FROM members)::INT as total_voluntarios
@@ -16,7 +16,7 @@ exports.getGlobalReport = async (req, res) => {
 
     // 2. Entregas por Día (Para el gráfico de líneas)
     const porDia = await db.query(`
-      SELECT fecha, SUM(cantidad) as total 
+      SELECT TO_CHAR(fecha, 'YYYY-MM-DD') as fecha, SUM(cantidad)::INT as total 
       FROM deliveries 
       GROUP BY fecha 
       ORDER BY fecha ASC 
@@ -26,6 +26,7 @@ exports.getGlobalReport = async (req, res) => {
     // 3. Rendimiento por Grupo (Usando tu vista progreso_grupos)
     const porGrupo = await db.query(`SELECT nombre, total_entregado::INT FROM progreso_grupos ORDER BY total_entregado DESC`);
 
+   
     // 4. Cobertura por Jornada (Dato interesante para logística)
     const porJornada = await db.query(`
       SELECT jornada, SUM(entregados) as total 
@@ -41,6 +42,7 @@ exports.getGlobalReport = async (req, res) => {
       jornadaBreakdown: porJornada.rows
     });
   } catch (err) {
+    console.error("Error en Reportes:", err);
     res.status(500).json({ error: err.message });
   }
 };
